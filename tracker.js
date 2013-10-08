@@ -17,4 +17,6 @@
 // need to have some way to detect that the user is trying to sort by a custom extension-based sort type
 // if that's the case, then display the reviews in the appropriate order
 
- $("#review_sort_section").append('Test');
+$("#review_sort_section").append('Test');
+
+$("#reviews-other ul li div.rateReview ul:last-child").append('<li class="cool ufc-stat inline-block">testB</li>');
