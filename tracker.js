@@ -1,59 +1,26 @@
-// function make_base_auth(user, password) {
-//   var tok = user + ':' + password;
-//   var hash = btoa(tok);
-//   return "Basic " + hash;
-// }
+// [kate, dan] get all the review divs
+
+// [kate, dan] add buttons for Food, Service, Atmosphere to each review div
+
+// [jenton, victor]
+// listener for each button:
+// send the review ID and attribute type (food/service/atmosphere)
+// modify some remote json file somewhere with the appropriate attribute for the appropriate review ID
+// if this is not possible, we might have to do a database and write a script to post to it, and also return json output when queried.
 
 
-// function bookmarkIt(tab) {
-// 	var id = '';
-// 	var password = '';
-// 	var url = 'https://' + id + ':' + password + '@api.del.icio.us/v1/posts/add';
-// 	console.log(tab);
-// 	var currentLocation = tab[0].url;
-// 	// $('#result').text('working...' + currentLocation);
+// [kate, dan]
+// add filtering/sorting options at the top of the review page
+// "Sort by: Yelp Sort [...]  Food, Service, Atmosphere"
 
-// 	if (currentLocation === undefined || $('#box').val() === '') {
-// 		return false;
-// 	}
-
-// 	var now = new Date();
-// 	var date = now.getFullYear() + '-' + now.getMonth() + '-' + now.getDate() + 'T' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + 'Z';
-	
-// 	var data = '?url=' + encodeURIComponent(currentLocation) + '&tags=' + encodeURIComponent($('#box').val());
-
-// 	$.ajax ({
-// 	    type: "GET",
-// 	    url: url + data,
-// 	    async: false,
-// 	    dataType: 'xml',
-// 	    crossDomain: true,
-// 	    complete: function (xhr, code) {
-// 	    	console.log(xhr);
-// 	    	console.log(code);
-// 	    	$('#result').text(code);
-// 	    }
-// 	 //    ,
-// 	 //    success: function (res){
-// 	 //        alert('ok');
-// 		// 	$('#result').text( 'ok : ' + res);
-// 		// 	console.log(res);
-// 	 //    },
-// 	 //    error: function (res, opt, err) {
-// 		// 	console.log(res);
-// 		// 	console.log(opt);
-// 		// 	console.log(err);
-// 		// }
-// 	});
-
-// }
-
-alert("click test0");
+// [kate, dan]
+// need to have some way to detect that the user is trying to sort by a custom extension-based sort type
+// if that's the case, then display the reviews in the appropriate order
 
 document.addEventListener('DOMContentLoaded', function () {
 	alert("click test1");
 	$('#button').click(function() {
-		alert("click test2");
+		console.log("click test2");
 		// chrome.tabs.query ({active: true, currentWindow: true}, function(tab) {
 		// bookmarkIt(tab);
 		// })
