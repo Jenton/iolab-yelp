@@ -4,15 +4,13 @@
   "name": "Yelp Tagger",
   "description": "This is a yelp tagger plugin",
   "version": "1.0",
-
   "permissions": [
     "history",
     "tabs",
     "https://api.del.icio.us/"
   ],
   "browser_action": {
-    "default_icon": "yelp-icon-128.png",
-    "default_popup": "yelp-tagger.html"
+    "default_icon": "yelp-icon-128.png"
   },
   "content_scripts" : [{
     "js": ["jquery.2.0.3.js", "yelp-tagger.js"],
