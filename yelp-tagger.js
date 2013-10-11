@@ -21,11 +21,12 @@
 
 // });2
 
+var reviewList = [];
+
+// get 
 $("#review_sort_section").append('Test');
 
 $("#reviews-other ul").each(function(index){
-	console.log(this.id);
+	console.log("hi");
 	$(this).find($("div.rateReview ul:last-child")).append('<li class="cool ufc-stat inline-block">testC</li>');	
 });
-
-
