@@ -21,7 +21,58 @@
 
 // });2
 
-$("#review_sort_section").append('Test');
+var reviewList = [
+	{
+		reviewID: '1',
+		food: 3,
+		service: 2,
+		atmosphere: 4,
+		price: 5
+	},
+	{
+		reviewID: '2',
+		food: 1,
+		service: 3,
+		atmosphere: 2,
+		price: 4
+	},
+	{
+		reviewID: '3',
+		food: 5,
+		service: 6,
+		atmosphere: 7,
+		price: 8
+	}
+];
+
+// returns review object for the reviewID
+// this needs to be modified if we change the format for reviewList
+function getReviewByID (reviewID) {
+	for(var i = 0 ; i < reviewList.length ; ++i) {
+		if(reviewList[i].reviewID === reviewID) {
+			return reviewList[i];
+		}
+	}
+}
+
+// modify the sort options, overwriting existing ones
+$("#review_sort_section").html('Sort by: <a href="?sort_by=date_desc">Date</a> | <a href="?sort_by=rating_desc">Rating</a> | <a href="?sort_by=friends_desc">Friends\'</a> | <a href="?sort_by=elites_desc">Elites\'</a> | <a id="sortFood" href="#food">Food</a> | <a id="sortService" href="#service">Service</a> | <a id="sortAtmo" href="#atmosphere">Atmosphere</a> | <a id="sortPrice" href="#price">Price</a>');
+
+$("#sortFood").click(function() {
+	alert("sortingByFood");
+});
+
+$("#sortService").click(function() {
+	alert("sorting by Service");
+});
+
+$("#sortAtmo").click(function() {
+	alert("sorting by atmo");
+});
+
+$("#sortPrice").click(function() {
+	alert("sorting by price");
+});
 
 
 // Get business id
@@ -61,6 +112,4 @@ $("#reviews-other ul li").each(function(){
 	});
 
 });
-
-
 
