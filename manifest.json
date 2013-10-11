@@ -10,7 +10,8 @@
     "https://api.del.icio.us/"
   ],
   "browser_action": {
-    "default_icon": "yelp-icon-128.png"
+    "default_icon": "yelp-icon-128.png",
+    "default_popup": "yelp-tagger.html"
   },
   "content_scripts" : [{
     "js": ["jquery.2.0.3.js", "yelp-tagger.js"],

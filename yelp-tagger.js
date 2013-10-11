@@ -26,7 +26,11 @@ var reviewList = [];
 // get 
 $("#review_sort_section").append('Test');
 
-$("#reviews-other ul").each(function(index){
-	console.log("hi");
-	$(this).find($("div.rateReview ul:last-child")).append('<li class="cool ufc-stat inline-block">testC</li>');	
+$("#reviews-other ul li").each(function(){
+
+	$(this).find($("div.rateReview ul:last-child")).append('<li class="foodButton inline-block" id="food'+this.id+'">Food'+'</li>');	
+	$('#food'+this.id).click(function(){
+		alert(this.id);
+	});
 });
+
