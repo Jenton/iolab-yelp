@@ -23,9 +23,13 @@
 
 $("#review_sort_section").append('Test');
 
+
+// TODO: Fetch the data
+
+// Add buttons
 $("#reviews-other ul li").each(function(){
 
-	$(this).find($("div.rateReview ul:last-child")).append('<li class="foodButton inline-block" id="food'+this.id+'">Food'+'</li>');	
+	$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton foodButton inline-block" id="food'+this.id+'">Food'+'</li>');	
 	$('#food'+this.id).click(function(){
 		alert(this.id);
 	});
