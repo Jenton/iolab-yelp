@@ -23,21 +23,21 @@
 
 var reviewList = [
 	{
-		reviewID: '1',
+		reviewID: 'review_lfMF7zYRlmec4iLat5xDlw',
 		food: 3,
 		service: 2,
 		atmosphere: 4,
 		price: 5
 	},
 	{
-		reviewID: '2',
+		reviewID: 'review_gZ37x_hROFJQlGXW_CEYug',
 		food: 1,
 		service: 3,
 		atmosphere: 2,
 		price: 4
 	},
 	{
-		reviewID: '3',
+		reviewID: 'review_1O2LeW-ZAItl9L0mGlahPA',
 		food: 5,
 		service: 6,
 		atmosphere: 7,
