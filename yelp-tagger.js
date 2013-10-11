@@ -24,15 +24,42 @@
 $("#review_sort_section").append('Test');
 
 
+// Get business id
+var bizId;
+var bizIdStr = $("#bizOwner a:first-child").attr("href");
+bizId = bizIdStr.substring(bizIdStr.search("biz_id=")+7);
+alert(bizId);
+
 // TODO: Fetch the data
 
 // Add buttons
 $("#reviews-other ul li").each(function(){
 
+	// Food button
 	$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton foodButton inline-block" id="food'+this.id+'">Food'+'</li>');	
 	$('#food'+this.id).click(function(){
 		alert(this.id);
+		// TODO: post the update with review ID and food tag
 	});
+
+	// Atmosphere button
+	$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton atmosphereButton inline-block" id="atmosphere'+this.id+'">Atmosphere'+'</li>');	
+	$('#atmosphere'+this.id).click(function(){
+		alert(this.id);
+	});
+
+	// Service button
+	$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton serviceButton inline-block" id="service'+this.id+'">Service'+'</li>');	
+	$('#service'+this.id).click(function(){
+		alert(this.id);
+	});
+
+	// Price button
+	$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton priceButton inline-block" id="price'+this.id+'">Price'+'</li>');	
+	$('#price'+this.id).click(function(){
+		alert(this.id);
+	});
+
 });
 
 
