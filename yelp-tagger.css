@@ -1,0 +1,9 @@
+.customizedButton {
+	background: #eee;
+	border: solid 1px #333;
+	padding: 2px 6px;
+}
+.customizedButton:hover {
+	opacity: 0.6;
+	cursor: pointer;
+}
