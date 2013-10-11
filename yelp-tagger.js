@@ -84,7 +84,7 @@ alert(bizId);
 // TODO: Fetch the data
 
 // Add buttons
-$("#reviews-other ul li").each(function(){
+$("#bizReviewsInner ul li").each(function(){
 
 	// Food button
 	$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton foodButton inline-block" id="food'+this.id+'">Food'+'</li>');	
