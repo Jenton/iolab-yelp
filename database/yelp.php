@@ -68,6 +68,37 @@
 <input type="button" value="Atmosphere" class="atmosphereButton">
 </div>
 
+<div>
+<h1 value="12" class="review">Review ID 12</h1>
+<p>Nam cu error maluisset vituperatoribus, vitae intellegebat concludaturque ut ius, has ex autem putent. Ex brute putant latine vix. Ei duis consul similique est, sit te lorem inani philosophia.</p> 
+<input type="button" value="Food" class="foodButton">
+<input type="button" value="Service" class="serviceButton">
+<input type="button" value="Atmosphere" class="atmosphereButton">
+</div>
+
+<div>
+<h1 value="13" class="review">Review ID 13</h1>
+<p>Nam cu error maluisset vituperatoribus, vitae intellegebat concludaturque ut ius, has ex autem putent. Ex brute putant latine vix. Ei duis consul similique est, sit te lorem inani philosophia.</p> 
+<input type="button" value="Food" class="foodButton">
+<input type="button" value="Service" class="serviceButton">
+<input type="button" value="Atmosphere" class="atmosphereButton">
+</div>
+
+<div>
+<h1 value="14" class="review">Review ID 14</h1>
+<p>Nam cu error maluisset vituperatoribus, vitae intellegebat concludaturque ut ius, has ex autem putent. Ex brute putant latine vix. Ei duis consul similique est, sit te lorem inani philosophia.</p> 
+<input type="button" value="Food" class="foodButton">
+<input type="button" value="Service" class="serviceButton">
+<input type="button" value="Atmosphere" class="atmosphereButton">
+</div>
+
+<div>
+<h1 value="15" class="review">Review ID 15</h1>
+<p>Nam cu error maluisset vituperatoribus, vitae intellegebat concludaturque ut ius, has ex autem putent. Ex brute putant latine vix. Ei duis consul similique est, sit te lorem inani philosophia.</p> 
+<input type="button" value="Food" class="foodButton">
+<input type="button" value="Service" class="serviceButton">
+<input type="button" value="Atmosphere" class="atmosphereButton">
+</div>
 <div id="info" />
 </form>
 </body>

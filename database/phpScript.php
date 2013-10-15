@@ -13,23 +13,18 @@ $bizID = $_POST["bizID"];
 //store the reviewIDs from the page. Looks like a string "1,2,3,4,5", so need to split it into a PHP array.
 $idArray = $_POST["reviewIDs"];
 $idArray = explode(",", $idArray);
-  
+ 
  
  //this code runs only when action == food from the ajax data call
 if ($_POST["action"] == "food") {
    //the "reviewID" comes from data: in the ajax call
    $reviewID = $_POST["reviewID"];
   
-
-
-//increments the specified reviewID's food column by 1
-  //$query=mysqli_query($con,"UPDATE yelp SET food=food + 1 WHERE reviewID=$reviewID AND bizID=$bizID");
- 
-  //trying out Inserting new rows for new reviewIDs, if the key is a duplicate, then it increments food by 1
-   //not working right now
+  //insert the reviewID and corresponding tag count into the yelp table
+   //if the key is a duplicate, then it increments the appropriate reviewID tag by 1
   $query=mysqli_query($con,"INSERT INTO yelp VALUES ('$bizID', '$reviewID', 1, 0, 0) 
-    ON DUPLICATE KEY UPDATE yelp SET food=food + 1 WHERE reviewID=$reviewID AND bizID=$bizID");
-  //updates the page with the new food and service counts
+    ON DUPLICATE KEY UPDATE food=food + 1");
+  //updates the page with the new tag counts
   updateTagCounts($idArray, $con);
 }
 
@@ -38,10 +33,11 @@ if ($_POST["action"] == "service") {
   //the "reviewID" comes from data: in the ajax call
   $reviewID = $_POST["reviewID"];
 
-  //increments the specified reviewID's service column by 1
-  $query=mysqli_query($con,"UPDATE yelp SET service=service + 1 WHERE reviewID=$reviewID AND bizID=$bizID");
-  
-  //updates the page with the new food and service counts
+  //insert the reviewID and corresponding tag count into the yelp table
+  //if the key is a duplicate, then it increments the appropriate reviewID tag by 1
+  $query=mysqli_query($con,"INSERT INTO yelp VALUES ('$bizID', '$reviewID', 0, 1, 0) 
+    ON DUPLICATE KEY UPDATE service=service + 1");
+  //updates the page with the new tag counts
   updateTagCounts($idArray, $con);
 }
 
@@ -50,10 +46,11 @@ if ($_POST["action"] == "atmosphere") {
   //the "reviewID" comes from data: in the ajax call
   $reviewID = $_POST["reviewID"];
 
-  //increments the specified reviewID's service column by 1
-  $query=mysqli_query($con,"UPDATE yelp SET atmosphere=atmosphere + 1 WHERE reviewID=$reviewID AND bizID=$bizID");
-  
-  //updates the page with the new food and service counts
+  //insert the reviewID and corresponding tag count into the yelp table
+  //if the key is a duplicate, then it increments the appropriate reviewID tag by 1
+  $query=mysqli_query($con,"INSERT INTO yelp VALUES ('$bizID', '$reviewID', 0, 0, 1) 
+    ON DUPLICATE KEY UPDATE atmosphere=atmosphere + 1");
+  //updates the page with the new tag counts
   updateTagCounts($idArray, $con);
 }
 
