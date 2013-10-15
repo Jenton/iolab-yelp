@@ -89,8 +89,16 @@ $("#bizReviewsInner ul li").each(function(){
 	// Food button
 	$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton foodButton inline-block" id="food'+this.id+'">Food'+'</li>');	
 	$('#food'+this.id).click(function(){
-		alert(this.id);
-		// TODO: post the update with review ID and food tag
+		// alert(this.id);
+		$.ajax({
+    		type:"post",
+    		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
+    		data:"action=food"+"&reviewID="+"1"+"&reviewIDs="+"[1,2,3,4,5,6,7,8,9,10]",
+    		success:function(data){
+     			// updateCounts(data);
+     			alert("Success");
+   			}
+ 		});
 	});
 
 	// Atmosphere button
