@@ -96,11 +96,10 @@ $(document).ready(function(){
 	$.ajax({
 		type:"post",
 		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
-		// data:"action=pageload"+"&bizID="+bizId+"&reviewIDs="+idArray,
-		data:"action=pageload"+"&bizID=12&reviewIDs="+idArray,
+		data:"action=pageload"+"&bizID="+bizId+"&reviewIDs="+idArray,
 		success:function(data){
-			// updateCounts(data);
-			console.log(data);
+			updateCounts(data);
+			//console.log(data);
 		}
 	});
 
@@ -116,11 +115,11 @@ $(document).ready(function(){
 			$.ajax({
 	    		type:"post",
 	    		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
-	    		data:"action=food"+"&reviewID="+selectedId+"&reviewIDs="+idArray,
+	    		data:"action=food"+"&bizID="+bizId+"&reviewID="+selectedId+"&reviewIDs="+idArray,
 	    		success:function(data){
-	     			// updateCounts(data);
-	     			console.log("Success");
-	     			console.log(data);
+	     			updateCounts(data);
+	     			//console.log("Success");
+	     			//console.log(data);
 	   			}
 	 		});
 		});

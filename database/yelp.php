@@ -17,10 +17,10 @@
 <!-- for <h1> tags with class="review", the value="1" will help identify which review ID you're tagging -->
 <div>
 
-<h1 class="bizID" value="1">Cheeseboard Collective</h1>
+<h1 class="bizID" value="2">Cheeseboard Collective</h1>
 
 <div>
-<h1 value="1" class="review">Review ID 1</h1>
+<h1 value="100" class="review">Review ID 100</h1>
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam imperdiet eleifend velit, et molestie erat auctor in. In sed odio eu ligula consequat rutrum et nec massa. Vivamus id pulvinar magna, blandit blandit sapien. </p>
 <input type="button" value="Food" class="foodButton">
 <input type="button" value="Service" class="serviceButton">
