@@ -90,13 +90,14 @@ $(document).ready(function(){
 	$("#bizReviewsInner ul li[id^=review_]").each(function(){
 		idArray.push(this.id);
 	});
-	console.log(idArray);
+	// console.log(idArray);
 
 	// When page loads, POST bizId & reviewList, and fetch data
 	$.ajax({
 		type:"post",
 		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
-		data:"action=pageload"+"&bizID="+bizId+"&reviewIDs="+idArray,
+		// data:"action=pageload"+"&bizID="+bizId+"&reviewIDs="+idArray,
+		data:"action=pageload"+"&bizID=12&reviewIDs="+idArray,
 		success:function(data){
 			// updateCounts(data);
 			console.log(data);
@@ -106,14 +107,16 @@ $(document).ready(function(){
 	// Add buttons
 	$("#bizReviewsInner ul li[id^=review_]").each(function(){
 
+		var selectedId = this.id;
+
 		// Food button
 		$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton foodButton inline-block" id="food'+this.id+'">Food'+'</li>');	
 		$('#food'+this.id).click(function(){
-			// alert(this.id);
+			//alert(this.id);
 			$.ajax({
 	    		type:"post",
 	    		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
-	    		data:"action=food"+"&reviewID="+this.id+"&reviewIDs="+idArray,
+	    		data:"action=food"+"&reviewID="+selectedId+"&reviewIDs="+idArray,
 	    		success:function(data){
 	     			// updateCounts(data);
 	     			console.log("Success");
