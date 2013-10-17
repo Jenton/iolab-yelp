@@ -75,49 +75,109 @@ $("#sortPrice").click(function() {
 });
 
 
-// Get business id
-var bizId;
-var bizIdStr = $("#bizOwner a:first-child").attr("href");
-bizId = bizIdStr.substring(bizIdStr.search("biz_id=")+7);
-alert(bizId);
 
-// TODO: Fetch the data
 
-// Add buttons
-$("#bizReviewsInner ul li").each(function(){
 
-	// Food button
-	$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton foodButton inline-block" id="food'+this.id+'">Food'+'</li>');	
-	$('#food'+this.id).click(function(){
-		// alert(this.id);
-		$.ajax({
-    		type:"post",
-    		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
-    		data:"action=food"+"&reviewID="+"1"+"&reviewIDs="+"[1,2,3,4,5,6,7,8,9,10]",
-    		success:function(data){
-     			// updateCounts(data);
-     			alert("Success");
-   			}
- 		});
+$(document).ready(function(){
+
+	// Get business id
+	var bizId;
+	var bizIdStr = $("#bizOwner a:first-child").attr("href");
+	bizId = bizIdStr.substring(bizIdStr.search("biz_id=")+7);
+
+	// Get review id
+	var idArray = [];
+	$("#bizReviewsInner ul li[id^=review_]").each(function(){
+		idArray.push(this.id);
+	});
+	console.log(idArray);
+
+	// When page loads, POST bizId & reviewList, and fetch data
+	$.ajax({
+		type:"post",
+		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
+		data:"action=pageload"+"&bizID="+bizId+"&reviewIDs="+idArray,
+		success:function(data){
+			// updateCounts(data);
+			console.log(data);
+		}
 	});
 
-	// Atmosphere button
-	$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton atmosphereButton inline-block" id="atmosphere'+this.id+'">Atmosphere'+'</li>');	
-	$('#atmosphere'+this.id).click(function(){
-		alert(this.id);
-	});
+	// Add buttons
+	$("#bizReviewsInner ul li[id^=review_]").each(function(){
 
-	// Service button
-	$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton serviceButton inline-block" id="service'+this.id+'">Service'+'</li>');	
-	$('#service'+this.id).click(function(){
-		alert(this.id);
-	});
+		// Food button
+		$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton foodButton inline-block" id="food'+this.id+'">Food'+'</li>');	
+		$('#food'+this.id).click(function(){
+			// alert(this.id);
+			$.ajax({
+	    		type:"post",
+	    		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
+	    		data:"action=food"+"&reviewID="+this.id+"&reviewIDs="+idArray,
+	    		success:function(data){
+	     			// updateCounts(data);
+	     			console.log("Success");
+	     			console.log(data);
+	   			}
+	 		});
+		});
 
-	// Price button
-	$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton priceButton inline-block" id="price'+this.id+'">Price'+'</li>');	
-	$('#price'+this.id).click(function(){
-		alert(this.id);
+		// Service button
+		$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton serviceButton inline-block" id="service'+this.id+'">Service'+'</li>');	
+		$('#service'+this.id).click(function(){
+			alert(this.id);
+		});
+
+		// Atmosphere button
+		$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton atmosphereButton inline-block" id="atmosphere'+this.id+'">Atmosphere'+'</li>');	
+		$('#atmosphere'+this.id).click(function(){
+			alert(this.id);
+		});
+
+		// Price button
+		$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton priceButton inline-block" id="price'+this.id+'">Price'+'</li>');	
+		$('#price'+this.id).click(function(){
+			alert(this.id);
+		});
+
 	});
 
 });
 
+ 
+
+
+
+function updateCounts(data) {
+	//create an array where each element is a string consisting of reviewID, food count, service count separated with an &
+	var info = data.split(";");
+	info.pop();
+	console.log(info);
+	for (var i = 0; i < info.length;i++) {
+		//create an array where each element is the reviewID, food count, and service count
+		var review = info[i].split("&");
+		console.log(review);
+		//saving the reviewID, food count, and service count into variables
+		var reviewID = review[0].slice(3);
+		var foodCount = review[1].slice(5);
+		var serviceCount = review[2].slice(8);
+		var atmosphereCount = review[3].slice(11);
+		console.log(reviewID);
+		console.log(foodCount);
+		console.log(serviceCount);
+		console.log(atmosphereCount);
+
+		// adding the food and service counts to the appropriate buttons
+		//$("#" + reviewID).siblings(".foodButton").attr("value", "Food (" + foodCount + ")");
+		//$("#" + reviewID).siblings(".serviceButton").attr("value", "Service (" + serviceCount + ")");
+		//$("#" + reviewID).siblings(".atmosphereButton").attr("value", "Atmosphere (" + atmosphereCount + ")");
+
+		// $(".review").each(function(){
+		// 	if($(this).attr("value") == reviewID) {
+		// 		$(this).siblings(".foodButton").attr("value", "Food (" + foodCount + ")");
+		// 		$(this).siblings(".serviceButton").attr("value", "Service (" + serviceCount + ")");
+		// 		$(this).siblings(".atmosphereButton").attr("value", "Atmosphere (" + atmosphereCount + ")"); 
+		// 	} 
+		// })
+  	}
+}
