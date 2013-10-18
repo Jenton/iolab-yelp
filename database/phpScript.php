@@ -22,7 +22,7 @@ if ($_POST["action"] == "food") {
   
   //insert the reviewID and corresponding tag count into the yelp table
    //if the key is a duplicate, then it increments the appropriate reviewID tag by 1
-  $query=mysqli_query($con,"INSERT INTO yelp VALUES ('$bizID', '$reviewID', 1, 0, 0) 
+  $query=mysqli_query($con,"INSERT INTO yelp VALUES ('$bizID', '$reviewID', 1, 0, 0, 0) 
     ON DUPLICATE KEY UPDATE food=food + 1");
   //updates the page with the new tag counts
   updateTagCounts($idArray, $con);
@@ -35,21 +35,34 @@ if ($_POST["action"] == "service") {
 
   //insert the reviewID and corresponding tag count into the yelp table
   //if the key is a duplicate, then it increments the appropriate reviewID tag by 1
-  $query=mysqli_query($con,"INSERT INTO yelp VALUES ('$bizID', '$reviewID', 0, 1, 0) 
+  $query=mysqli_query($con,"INSERT INTO yelp VALUES ('$bizID', '$reviewID', 0, 1, 0, 0) 
     ON DUPLICATE KEY UPDATE service=service + 1");
   //updates the page with the new tag counts
   updateTagCounts($idArray, $con);
 }
 
-//this code runs only when the atmosphere button is clicked. It increments service by one for the reviewID
+//this code runs only when the atmosphere button is clicked. It increments atmosphere by one for the reviewID
 if ($_POST["action"] == "atmosphere") {
   //the "reviewID" comes from data: in the ajax call
   $reviewID = $_POST["reviewID"];
 
   //insert the reviewID and corresponding tag count into the yelp table
   //if the key is a duplicate, then it increments the appropriate reviewID tag by 1
-  $query=mysqli_query($con,"INSERT INTO yelp VALUES ('$bizID', '$reviewID', 0, 0, 1) 
+  $query=mysqli_query($con,"INSERT INTO yelp VALUES ('$bizID', '$reviewID', 0, 0, 1, 0) 
     ON DUPLICATE KEY UPDATE atmosphere=atmosphere + 1");
+  //updates the page with the new tag counts
+  updateTagCounts($idArray, $con);
+}
+
+//this code runs only when the price button is clicked. It increments price by one for the reviewID
+if ($_POST["action"] == "price") {
+  //the "reviewID" comes from data: in the ajax call
+  $reviewID = $_POST["reviewID"];
+
+  //insert the reviewID and corresponding tag count into the yelp table
+  //if the key is a duplicate, then it increments the appropriate reviewID tag by 1
+  $query=mysqli_query($con,"INSERT INTO yelp VALUES ('$bizID', '$reviewID', 0, 0, 0, 1) 
+    ON DUPLICATE KEY UPDATE price=price + 1");
   //updates the page with the new tag counts
   updateTagCounts($idArray, $con);
 }
@@ -71,7 +84,8 @@ while($row = mysqli_fetch_array($result)) {
     if ($id == $row['reviewID']) {
       //this will return data in the script.js that looks like &ID=1&food=12&service=1
       //maybe we can parse that and do something with it?
-      echo "ID=" . $id . "&food=" . $row['food'] . "&service=" . $row['service'] . "&atmosphere=" . $row['atmosphere'] . ";";
+      echo "ID=" . $id . "&food=" . $row['food'] . "&service=" . $row['service'] . "&atmosphere="
+        . $row['atmosphere'] . "&price=" . $row['price'] . ";";
       //echo "reviewID: " . $row['reviewID'] . " food: " . $row['food'] . " service: " . $row['service'];
       //echo "<br>";
       }
