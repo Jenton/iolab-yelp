@@ -90,7 +90,6 @@ $(document).ready(function(){
 	$("#bizReviewsInner ul li[id^=review_]").each(function(){
 		idArray.push(this.id);
 	});
-	// console.log(idArray);
 
 	// When page loads, POST bizId & reviewList, and fetch data
 	$.ajax({
@@ -99,7 +98,6 @@ $(document).ready(function(){
 		data:"action=pageload"+"&bizID="+bizId+"&reviewIDs="+idArray,
 		success:function(data){
 			updateCounts(data);
-			//console.log(data);
 		}
 	});
 
@@ -109,35 +107,46 @@ $(document).ready(function(){
 		var selectedId = this.id;
 
 		// Food button
-		$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton foodButton inline-block" id="food'+this.id+'">Food'+'</li>');	
+		$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton foodButton inline-block" id="food'+this.id+'">Food 0'+'</li>');	
 		$('#food'+this.id).click(function(){
-			//alert(this.id);
 			$.ajax({
 	    		type:"post",
 	    		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
 	    		data:"action=food"+"&bizID="+bizId+"&reviewID="+selectedId+"&reviewIDs="+idArray,
 	    		success:function(data){
 	     			updateCounts(data);
-	     			//console.log("Success");
-	     			//console.log(data);
 	   			}
 	 		});
 		});
 
 		// Service button
-		$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton serviceButton inline-block" id="service'+this.id+'">Service'+'</li>');	
+		$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton serviceButton inline-block" id="service'+this.id+'">Service 0'+'</li>');	
 		$('#service'+this.id).click(function(){
-			alert(this.id);
+			$.ajax({
+	    		type:"post",
+	    		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
+	    		data:"action=service"+"&bizID="+bizId+"&reviewID="+selectedId+"&reviewIDs="+idArray,
+	    		success:function(data){
+	     			updateCounts(data);
+	   			}
+	 		});
 		});
 
 		// Atmosphere button
-		$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton atmosphereButton inline-block" id="atmosphere'+this.id+'">Atmosphere'+'</li>');	
+		$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton atmosphereButton inline-block" id="atmosphere'+this.id+'">Atmosphere 0'+'</li>');	
 		$('#atmosphere'+this.id).click(function(){
-			alert(this.id);
+			$.ajax({
+	    		type:"post",
+	    		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
+	    		data:"action=atmosphere"+"&bizID="+bizId+"&reviewID="+selectedId+"&reviewIDs="+idArray,
+	    		success:function(data){
+	     			updateCounts(data);
+	   			}
+	 		});
 		});
 
 		// Price button
-		$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton priceButton inline-block" id="price'+this.id+'">Price'+'</li>');	
+		$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton priceButton inline-block" id="price'+this.id+'">Price 0'+'</li>');	
 		$('#price'+this.id).click(function(){
 			alert(this.id);
 		});
@@ -145,9 +154,6 @@ $(document).ready(function(){
 	});
 
 });
-
- 
-
 
 
 function updateCounts(data) {
@@ -169,17 +175,10 @@ function updateCounts(data) {
 		console.log(serviceCount);
 		console.log(atmosphereCount);
 
-		// adding the food and service counts to the appropriate buttons
-		//$("#" + reviewID).siblings(".foodButton").attr("value", "Food (" + foodCount + ")");
-		//$("#" + reviewID).siblings(".serviceButton").attr("value", "Service (" + serviceCount + ")");
-		//$("#" + reviewID).siblings(".atmosphereButton").attr("value", "Atmosphere (" + atmosphereCount + ")");
+		$('#food'+reviewID).text("Food "+foodCount);
+		$('#service'+reviewID).text("Service "+serviceCount);
+		$('#atmosphere'+reviewID).text("Atmosphere "+atmosphereCount);
+		// price ?
 
-		// $(".review").each(function(){
-		// 	if($(this).attr("value") == reviewID) {
-		// 		$(this).siblings(".foodButton").attr("value", "Food (" + foodCount + ")");
-		// 		$(this).siblings(".serviceButton").attr("value", "Service (" + serviceCount + ")");
-		// 		$(this).siblings(".atmosphereButton").attr("value", "Atmosphere (" + atmosphereCount + ")"); 
-		// 	} 
-		// })
   	}
 }
