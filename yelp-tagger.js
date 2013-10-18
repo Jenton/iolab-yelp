@@ -224,51 +224,121 @@ function addVoteListeners(bizId, idArray) {
 	$("#bizReviewsInner ul li[id^=review_]").each(function(){
 
 		var selectedId = this.id;
-
 		$('#food'+this.id).click(function(){
-			$.ajax({
-	    		type:"post",
-	    		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
-	    		data:"action=food"+"&bizID="+bizId+"&reviewID="+selectedId+"&reviewIDs="+idArray,
-	    		success:function(data){
-	     			updateCounts(data);
-	   			}
-	 		});
+			// update storedVotes, put it back in localStorage
+			// check local storage to see if we've voted before
+			checkStorage(selectedId);
+			
+			var storedVotes = JSON.parse(localStorage.getItem(selectedId));
+			if(storedVotes.food == 0) {
+				// first time voting on a button.
+				storedVotes.food += 1;				
+				localStorage.setItem(selectedId, JSON.stringify(storedVotes));
+
+				$.ajax({
+		    		type:"post",
+		    		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
+		    		data:"action=food"+"&bizID="+bizId+"&reviewID="+selectedId+"&reviewIDs="+idArray,
+		    		success:function(data){
+		     			updateCounts(data);
+		   			}
+		 		});
+			} else {
+				// disable the button
+
+			}
+
 		});
 
 		$('#service'+this.id).click(function(){
-			$.ajax({
-	    		type:"post",
-	    		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
-	    		data:"action=service"+"&bizID="+bizId+"&reviewID="+selectedId+"&reviewIDs="+idArray,
-	    		success:function(data){
-	     			updateCounts(data);
-	   			}
-	 		});
+			// update storedVotes, put it back in localStorage
+			// check local storage to see if we've voted before
+			checkStorage(selectedId);
+			
+			var storedVotes = JSON.parse(localStorage.getItem(selectedId));
+			if(storedVotes.service == 0) {
+				// first time voting on a button.
+				storedVotes.service += 1;				
+				localStorage.setItem(selectedId, JSON.stringify(storedVotes));
+
+
+				$.ajax({
+		    		type:"post",
+		    		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
+		    		data:"action=service"+"&bizID="+bizId+"&reviewID="+selectedId+"&reviewIDs="+idArray,
+		    		success:function(data){
+		     			updateCounts(data);
+		   			}
+		 		});
+			} else {
+				// disable the button
+			}
 		});
 
 		$('#atmosphere'+this.id).click(function(){
-			$.ajax({
-	    		type:"post",
-	    		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
-	    		data:"action=atmosphere"+"&bizID="+bizId+"&reviewID="+selectedId+"&reviewIDs="+idArray,
-	    		success:function(data){
-	     			updateCounts(data);
-	   			}
-	 		});
+			// update storedVotes, put it back in localStorage
+			// check local storage to see if we've voted before
+			checkStorage(selectedId);
+			
+			var storedVotes = JSON.parse(localStorage.getItem(selectedId));
+			if(storedVotes.atmosphere == 0) {
+				// first time voting on a button.
+				storedVotes.atmosphere += 1;				
+				localStorage.setItem(selectedId, JSON.stringify(storedVotes));
+
+
+				$.ajax({
+		    		type:"post",
+		    		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
+		    		data:"action=atmosphere"+"&bizID="+bizId+"&reviewID="+selectedId+"&reviewIDs="+idArray,
+		    		success:function(data){
+		     			updateCounts(data);
+		   			}
+		 		});
+			} else {
+				//disable the button
+			}
 		});
 	
 		$('#price'+this.id).click(function(){
-			$.ajax({
-	    		type:"post",
-	    		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
-	    		data:"action=price"+"&bizID="+bizId+"&reviewID="+selectedId+"&reviewIDs="+idArray,
-	    		success:function(data){
-	     			updateCounts(data);
-	   			}
-	 		});
+			// update storedVotes, put it back in localStorage
+			// check local storage to see if we've voted before
+			checkStorage(selectedId);
+			
+			var storedVotes = JSON.parse(localStorage.getItem(selectedId));
+			if(storedVotes.price == 0) {
+				// first time voting on a button.
+				storedVotes.price += 1;				
+				localStorage.setItem(selectedId, JSON.stringify(storedVotes));
+
+				$.ajax({
+		    		type:"post",
+		    		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
+		    		data:"action=price"+"&bizID="+bizId+"&reviewID="+selectedId+"&reviewIDs="+idArray,
+		    		success:function(data){
+		     			updateCounts(data);
+		   			}
+		 		});
+			} else { 
+				// disable button
+			}
 		});
 	});
+}
+
+// check if localstorage has the selectedId
+function checkStorage(selectedId) {
+	if(typeof(Storage)!=="undefined") {
+		// localStorage and sessionStorage support
+		var storedVotes = JSON.parse(localStorage.getItem(selectedId));
+		if(!storedVotes) {
+			// initialize localstorage with blanks if this is the first time voting
+			localStorage.setItem(selectedId, JSON.stringify({food:0,atmosphere:0,service:0,price:0}));
+		}
+	}
+	else {
+		// no localStorage support
+	}
 }
 
 function removeExtraText() {
@@ -283,22 +353,22 @@ function updateCounts(data) {
 	//create an array where each element is a string consisting of reviewID, food count, service count separated with an &
 	var info = data.split(";");
 	info.pop();
-	console.log(info);
+	// console.log(info);
 	for (var i = 0; i < info.length;i++) {
 		//create an array where each element is the reviewID, food count, and service count
 		var review = info[i].split("&");
-		console.log(review);
+		// console.log(review);
 		//saving the reviewID, food count, and service count into variables
 		var reviewID = review[0].slice(3);
 		var foodCount = review[1].slice(5);
 		var serviceCount = review[2].slice(8);
 		var atmosphereCount = review[3].slice(11);
 		var priceCount = review[4].slice(6);
-		console.log(reviewID);
-		console.log(foodCount);
-		console.log(serviceCount);
-		console.log(atmosphereCount);
-		console.log(priceCount);
+		// console.log(reviewID);
+		// console.log(foodCount);
+		// console.log(serviceCount);
+		// console.log(atmosphereCount);
+		// console.log(priceCount);
 
 		// update the reviewList array of review objects with the proper tagged attributes
 		updateReviewList(reviewID, foodCount, serviceCount, atmosphereCount, priceCount)
