@@ -110,17 +110,68 @@ $(document).ready(function(){
 
 		var selectedId = this.id;
 
-		// Food button
-		$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton foodButton inline-block" id="food'+this.id+'">Food 0'+'</li>');	
+		if(typeof(Storage)!=="undefined") {
+			// localStorage and sessionStorage support
+			var storedVotes = JSON.parse(localStorage.getItem(selectedId));
+			if(!storedVotes) {
+				// nothing in localStorage
+				// Food button
+				$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton foodButton inline-block" id="food'+this.id+'">Food 0'+'</li>');	
 
-		// service button
-		$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton serviceButton inline-block" id="service'+this.id+'">Service 0'+'</li>');	
+				// service button
+				$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton serviceButton inline-block" id="service'+this.id+'">Service 0'+'</li>');	
 
-		// Atmosphere button
-		$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton atmosphereButton inline-block" id="atmosphere'+this.id+'">Atmosphere 0'+'</li>');	
+				// Atmosphere button
+				$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton atmosphereButton inline-block" id="atmosphere'+this.id+'">Atmosphere 0'+'</li>');	
 
-		// Price button
-		$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton priceButton inline-block" id="price'+this.id+'">Price 0'+'</li>');	
+				// Price button
+				$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton priceButton inline-block" id="price'+this.id+'">Price 0'+'</li>');	
+			} else {
+				// we've voted in some way or another on this review before.
+
+				if(storedVotes.food > 0) {
+					// Food button
+					$(this).find($("div.rateReview ul:last-child")).append('<li class="disabledButton foodButton inline-block" id="food'+this.id+'">Food 0'+'</li>');	
+				} else {
+					$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton foodButton inline-block" id="food'+this.id+'">Food 0'+'</li>');	
+				}
+
+				if(storedVotes.service > 0) {
+					// service button
+					$(this).find($("div.rateReview ul:last-child")).append('<li class="disabledButton serviceButton inline-block" id="service'+this.id+'">Service 0'+'</li>');	
+				} else {
+					$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton serviceButton inline-block" id="service'+this.id+'">Service 0'+'</li>');	
+				}
+
+				if(storedVotes.atmosphere > 0) {
+					// Atmosphere button
+					$(this).find($("div.rateReview ul:last-child")).append('<li class="disabledButton atmosphereButton inline-block" id="atmosphere'+this.id+'">Atmosphere 0'+'</li>');	
+				} else {
+					$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton atmosphereButton inline-block" id="atmosphere'+this.id+'">Atmosphere 0'+'</li>');	
+				}
+
+				if(storedVotes.price > 0) {
+					// Price button
+					$(this).find($("div.rateReview ul:last-child")).append('<li class="disabledButton priceButton inline-block" id="price'+this.id+'">Price 0'+'</li>');	
+				} else {
+					$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton priceButton inline-block" id="price'+this.id+'">Price 0'+'</li>');	
+				}
+
+			}
+		} else {
+			// no localstorage support
+			$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton foodButton inline-block" id="food'+this.id+'">Food 0'+'</li>');	
+
+			// service button
+			$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton serviceButton inline-block" id="service'+this.id+'">Service 0'+'</li>');	
+
+			// Atmosphere button
+			$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton atmosphereButton inline-block" id="atmosphere'+this.id+'">Atmosphere 0'+'</li>');	
+
+			// Price button
+			$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton priceButton inline-block" id="price'+this.id+'">Price 0'+'</li>');	
+		}
+
 	});
 
 	// add event listeners. These click handlers also need to be readded after we rebuild the DOM when sorting.
@@ -227,9 +278,8 @@ function addVoteListeners(bizId, idArray) {
 		$('#food'+this.id).click(function(){
 			// update storedVotes, put it back in localStorage
 			// check local storage to see if we've voted before
-			checkStorage(selectedId);
-			
-			var storedVotes = JSON.parse(localStorage.getItem(selectedId));
+			var storedVotes = checkStorage(selectedId);
+
 			if(storedVotes.food == 0) {
 				// first time voting on a button.
 				storedVotes.food += 1;				
@@ -243,19 +293,18 @@ function addVoteListeners(bizId, idArray) {
 		     			updateCounts(data);
 		   			}
 		 		});
-			} else {
+
 				// disable the button
-
+		 		$(this).removeClass("customizedButton");
+				$(this).addClass("disabledButton");
 			}
-
 		});
 
 		$('#service'+this.id).click(function(){
 			// update storedVotes, put it back in localStorage
 			// check local storage to see if we've voted before
-			checkStorage(selectedId);
-			
-			var storedVotes = JSON.parse(localStorage.getItem(selectedId));
+			var storedVotes = checkStorage(selectedId);
+
 			if(storedVotes.service == 0) {
 				// first time voting on a button.
 				storedVotes.service += 1;				
@@ -270,17 +319,18 @@ function addVoteListeners(bizId, idArray) {
 		     			updateCounts(data);
 		   			}
 		 		});
-			} else {
+
 				// disable the button
+		 		$(this).removeClass("customizedButton");
+				$(this).addClass("disabledButton");
 			}
 		});
 
 		$('#atmosphere'+this.id).click(function(){
 			// update storedVotes, put it back in localStorage
 			// check local storage to see if we've voted before
-			checkStorage(selectedId);
-			
-			var storedVotes = JSON.parse(localStorage.getItem(selectedId));
+			var storedVotes = checkStorage(selectedId);
+
 			if(storedVotes.atmosphere == 0) {
 				// first time voting on a button.
 				storedVotes.atmosphere += 1;				
@@ -295,17 +345,18 @@ function addVoteListeners(bizId, idArray) {
 		     			updateCounts(data);
 		   			}
 		 		});
-			} else {
-				//disable the button
+
+				// disable the button
+		 		$(this).removeClass("customizedButton");
+				$(this).addClass("disabledButton");
 			}
 		});
 	
 		$('#price'+this.id).click(function(){
 			// update storedVotes, put it back in localStorage
 			// check local storage to see if we've voted before
-			checkStorage(selectedId);
-			
-			var storedVotes = JSON.parse(localStorage.getItem(selectedId));
+			var storedVotes = checkStorage(selectedId);
+
 			if(storedVotes.price == 0) {
 				// first time voting on a button.
 				storedVotes.price += 1;				
@@ -319,8 +370,10 @@ function addVoteListeners(bizId, idArray) {
 		     			updateCounts(data);
 		   			}
 		 		});
-			} else { 
-				// disable button
+
+				// disable the button
+		 		$(this).removeClass("customizedButton");
+				$(this).addClass("disabledButton");
 			}
 		});
 	});
@@ -334,7 +387,9 @@ function checkStorage(selectedId) {
 		if(!storedVotes) {
 			// initialize localstorage with blanks if this is the first time voting
 			localStorage.setItem(selectedId, JSON.stringify({food:0,atmosphere:0,service:0,price:0}));
+			storedVotes = JSON.parse(localStorage.getItem(selectedId));
 		}
+		return storedVotes;
 	}
 	else {
 		// no localStorage support
