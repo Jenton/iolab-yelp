@@ -104,58 +104,27 @@ $(document).ready(function(){
 		}
 	});
 
-
 	/* VOTING/TAGGING BUTTONS FOR EACH REVIEW */
-	// Add buttons
+	// Add vote/tag buttons
 	$("#bizReviewsInner ul li[id^=review_]").each(function(){
 
 		var selectedId = this.id;
 
 		// Food button
 		$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton foodButton inline-block" id="food'+this.id+'">Food 0'+'</li>');	
-		$('#food'+this.id).click(function(){
-			$.ajax({
-	    		type:"post",
-	    		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
-	    		data:"action=food"+"&bizID="+bizId+"&reviewID="+selectedId+"&reviewIDs="+idArray,
-	    		success:function(data){
-	     			updateCounts(data);
-	   			}
-	 		});
-		});
 
-		// Service button
+		// service button
 		$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton serviceButton inline-block" id="service'+this.id+'">Service 0'+'</li>');	
-		$('#service'+this.id).click(function(){
-			$.ajax({
-	    		type:"post",
-	    		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
-	    		data:"action=service"+"&bizID="+bizId+"&reviewID="+selectedId+"&reviewIDs="+idArray,
-	    		success:function(data){
-	     			updateCounts(data);
-	   			}
-	 		});
-		});
 
 		// Atmosphere button
 		$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton atmosphereButton inline-block" id="atmosphere'+this.id+'">Atmosphere 0'+'</li>');	
-		$('#atmosphere'+this.id).click(function(){
-			$.ajax({
-	    		type:"post",
-	    		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
-	    		data:"action=atmosphere"+"&bizID="+bizId+"&reviewID="+selectedId+"&reviewIDs="+idArray,
-	    		success:function(data){
-	     			updateCounts(data);
-	   			}
-	 		});
-		});
 
 		// Price button
 		$(this).find($("div.rateReview ul:last-child")).append('<li class="customizedButton priceButton inline-block" id="price'+this.id+'">Price 0'+'</li>');	
-		$('#price'+this.id).click(function(){
-			alert(this.id);
-		});
 	});
+
+	// add event listeners. These click handlers also need to be readded after we rebuild the DOM when sorting.
+	addVoteListeners(bizId, idArray);
 
 
 	/* SORTING BY OUR CUSTOM TAGS */
@@ -165,40 +134,10 @@ $(document).ready(function(){
 	// on click of each sorting option:
 	// sort local reviewList by that option
 	// jquery sort DOM
-
-
-	// comparison sort functions for each of the tags
-	// used for javascript .sort() function
-	function compareFood(a,b) {
-	  if (a.food < b.food)
-	     return 1;
-	  if (a.food > b.food)
-	    return -1;
-	  return 0;
-	}
-	function compareService(a,b) {
-	  if (a.service < b.service)
-	     return 1;
-	  if (a.service > b.service)
-	    return -1;
-	  return 0;
-	}
-	function compareAtmosphere(a,b) {
-	  if (a.atmosphere < b.atmosphere)
-	     return 1;
-	  if (a.atmosphere > b.atmosphere)
-	    return -1;
-	  return 0;
-	}
-	function comparePrice(a,b) {
-	  if (a.price < b.price)
-	     return 1;
-	  if (a.price > b.price)
-	    return -1;
-	  return 0;
-	}
-
 	$("#sortFood").click(function() {
+		// remove text "Reviews from ____" and "2954 reviews in English"
+		removeExtraText();
+
 		$("#bizReviewsInner div[id='reviews-fb-friends'] > ul").slideUp("normal", function() { $(this).empty(); } );
 		$("#bizReviewsInner div[id='reviews-highlighted'] > ul").slideUp("normal", function() { $(this).empty(); } );
 		$("#bizReviewsInner div[id='reviews-following'] > ul").slideUp("normal", function() { $(this).empty(); } );
@@ -211,10 +150,16 @@ $(document).ready(function(){
 				$("#bizReviewsInner div[id='reviews-other'] > ul").append(reviewList[i].reviewObj);
 			}
 			$("#bizReviewsInner div[id='reviews-other'] > ul").slideDown();
+
+			addVoteListeners(bizId, idArray);
+
 		} );
+
 	});
 
 	$("#sortService").click(function() {
+		// remove text "Reviews from ____" and "2954 reviews in English"
+		removeExtraText();
 		$("#bizReviewsInner div[id='reviews-fb-friends'] > ul").slideUp("normal", function() { $(this).empty(); } );
 		$("#bizReviewsInner div[id='reviews-highlighted'] > ul").slideUp("normal", function() { $(this).empty(); } );
 		$("#bizReviewsInner div[id='reviews-following'] > ul").slideUp("normal", function() { $(this).empty(); } );
@@ -227,10 +172,14 @@ $(document).ready(function(){
 				$("#bizReviewsInner div[id='reviews-other'] > ul").append(reviewList[i].reviewObj);
 			}
 			$("#bizReviewsInner div[id='reviews-other'] > ul").slideDown();
+
+			addVoteListeners(bizId, idArray);
 		} );
 	});
 
 	$("#sortAtmo").click(function() {
+		// remove text "Reviews from ____" and "2954 reviews in English"
+		removeExtraText();
 		$("#bizReviewsInner div[id='reviews-fb-friends'] > ul").slideUp("normal", function() { $(this).empty(); } );
 		$("#bizReviewsInner div[id='reviews-highlighted'] > ul").slideUp("normal", function() { $(this).empty(); } );
 		$("#bizReviewsInner div[id='reviews-following'] > ul").slideUp("normal", function() { $(this).empty(); } );
@@ -243,10 +192,14 @@ $(document).ready(function(){
 				$("#bizReviewsInner div[id='reviews-other'] > ul").append(reviewList[i].reviewObj);
 			}
 			$("#bizReviewsInner div[id='reviews-other'] > ul").slideDown();
+
+			addVoteListeners(bizId, idArray);
 		} );
 	});
 
 	$("#sortPrice").click(function() {
+		// remove text "Reviews from ____" and "2954 reviews in English"
+		removeExtraText();
 		$("#bizReviewsInner div[id='reviews-fb-friends'] > ul").slideUp("normal", function() { $(this).empty(); } );
 		$("#bizReviewsInner div[id='reviews-highlighted'] > ul").slideUp("normal", function() { $(this).empty(); } );
 		$("#bizReviewsInner div[id='reviews-following'] > ul").slideUp("normal", function() { $(this).empty(); } );
@@ -259,11 +212,72 @@ $(document).ready(function(){
 				$("#bizReviewsInner div[id='reviews-other'] > ul").append(reviewList[i].reviewObj);
 			}
 			$("#bizReviewsInner div[id='reviews-other'] > ul").slideDown();
+			addVoteListeners(bizId, idArray);
 		} );
 	});
 
 });
 
+
+
+function addVoteListeners(bizId, idArray) {
+	$("#bizReviewsInner ul li[id^=review_]").each(function(){
+
+		var selectedId = this.id;
+
+		$('#food'+this.id).click(function(){
+			$.ajax({
+	    		type:"post",
+	    		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
+	    		data:"action=food"+"&bizID="+bizId+"&reviewID="+selectedId+"&reviewIDs="+idArray,
+	    		success:function(data){
+	     			updateCounts(data);
+	   			}
+	 		});
+		});
+
+		$('#service'+this.id).click(function(){
+			$.ajax({
+	    		type:"post",
+	    		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
+	    		data:"action=service"+"&bizID="+bizId+"&reviewID="+selectedId+"&reviewIDs="+idArray,
+	    		success:function(data){
+	     			updateCounts(data);
+	   			}
+	 		});
+		});
+
+		$('#atmosphere'+this.id).click(function(){
+			$.ajax({
+	    		type:"post",
+	    		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
+	    		data:"action=atmosphere"+"&bizID="+bizId+"&reviewID="+selectedId+"&reviewIDs="+idArray,
+	    		success:function(data){
+	     			updateCounts(data);
+	   			}
+	 		});
+		});
+	
+		$('#price'+this.id).click(function(){
+			$.ajax({
+	    		type:"post",
+	    		url:"http://people.ischool.berkeley.edu/~jenton/IO_Lab_P2/phpScript.php",
+	    		data:"action=price"+"&bizID="+bizId+"&reviewID="+selectedId+"&reviewIDs="+idArray,
+	    		success:function(data){
+	     			updateCounts(data);
+	   			}
+	 		});
+		});
+	});
+}
+
+function removeExtraText() {
+	// remove "reviews from [your facebook friends, etc]"
+	// remove "2954 reviews in English" type of text
+	$("#bizReviewsInner div[id^=reviews] > h3").each(function(){
+		$(this).remove();
+	});
+}
 
 function updateCounts(data) {
 	//create an array where each element is a string consisting of reviewID, food count, service count separated with an &
@@ -279,28 +293,62 @@ function updateCounts(data) {
 		var foodCount = review[1].slice(5);
 		var serviceCount = review[2].slice(8);
 		var atmosphereCount = review[3].slice(11);
+		var priceCount = review[4].slice(6);
 		console.log(reviewID);
 		console.log(foodCount);
 		console.log(serviceCount);
 		console.log(atmosphereCount);
+		console.log(priceCount);
 
 		// update the reviewList array of review objects with the proper tagged attributes
-		updateReviewList(reviewID, foodCount, serviceCount, atmosphereCount)
+		updateReviewList(reviewID, foodCount, serviceCount, atmosphereCount, priceCount)
 
 		$('#food'+reviewID).text("Food "+foodCount);
 		$('#service'+reviewID).text("Service "+serviceCount);
 		$('#atmosphere'+reviewID).text("Atmosphere "+atmosphereCount);
-		// price ?
+		$('#price'+reviewID).text("Price "+priceCount);
   	}
 }
 
 // given a reviewID and numbers for each count (from the database), update the local array of objects
-function updateReviewList(reviewID, foodCount, serviceCount, atmosphereCount) {
+function updateReviewList(reviewID, foodCount, serviceCount, atmosphereCount, priceCount) {
 	for (var i = 0 ; i < reviewList.length ; ++i) {
 		if(reviewList[i].reviewID == reviewID) {
 			reviewList[i].food = foodCount;
 			reviewList[i].service = serviceCount;
 			reviewList[i].atmosphere = atmosphereCount;
+			reviewList[i].price = priceCount;
 		}
 	}
+}
+
+// comparison sort functions for each of the tags
+// used for javascript .sort() function
+function compareFood(a,b) {
+  if (parseInt(a.food) < parseInt(b.food))
+     return 1;
+  if (parseInt(a.food) > parseInt(b.food))
+    return -1;
+  return 0;
+}
+function compareService(a,b) {
+  if (parseInt(a.service) < parseInt(b.service))
+     return 1;
+  if (parseInt(a.service) > parseInt(b.service))
+    return -1;
+  return 0;
+}
+function compareAtmosphere(a,b) {
+  if (parseInt(a.atmosphere) < parseInt(b.atmosphere))
+     return 1;
+  if (parseInt(a.atmosphere) > parseInt(b.atmosphere))
+    return -1;
+  return 0;
+}
+function comparePrice(a,b) {
+  if (parseInt(a.price) < parseInt(b.price))
+     return 1;
+  if (parseInt(a.price) > parseInt(b.price))
+    return -1;
+  return 0;
 }
