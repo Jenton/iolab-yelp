@@ -20,4 +20,4 @@ Kate Hsaio - Front End/Chrome Extension</p>
 <p>pending packaged .crx file...</p>
 
 <h3>Known Bugs</h3>
-<p>... what bugs?</p> 
+<p>The extension currently only sorts by the current page of reviews. This is because Yelp provides no way to get all reviews associated with a business (even with the API, as far as we can tell).</p> 
