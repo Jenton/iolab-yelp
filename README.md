@@ -21,4 +21,5 @@ Kate Hsaio - Front End/Chrome Extension</p>
 <p>You can download the CRX from the repo on github here: https://github.com/dantsai/iolab-yelp/blob/master/iolab-yelp.crx</p>
 
 <h3>Known Bugs</h3>
-<p>The extension currently only sorts by the current page of reviews. This is because Yelp provides no way to get all reviews associated with a business (even with the API, as far as we can tell).</p> 
+<p>The extension currently only sorts by the current page of reviews. This is because Yelp provides no way to get all reviews associated with a business (even with the API, as far as we can tell).</p>
+<p>Moreover, the "Write a Review" functionality exists primarily as a proof of concept, and is not functional, but pops up a JavaScript alert showing what would happen.</p>
