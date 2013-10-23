@@ -23,10 +23,10 @@ $(document).ready(function(){
 	    var total_atmosphere = 0;
 	    var total_price = 0;
 	    var review_str =$("#review-text").val().replace(/[^\w\s]|_/g, "").replace(/\s+/g, " ").toLowerCase().split(" ");
-	    var food_list = ["", "juicy", "fresh", "seasoned", "salty", "dessert", "milk", "sugar", "water", "salad", "culinary", "coffee", "pizza", "pasta", "food", "delicious", "appetizing", "crunchy", "spicy", "sweet", "greasy", "fishy", "buttery", "bland", "bitter", "aftertaste", "mouthwatering", "flavors", "flavor"];
-	    var service_list = ["", "professional", "reservation", "personal", "reservation", "staff", "service", "slow", "pleasure", "polite", "waiter", "waitress", "fast", "helpful", "friendly", "prompt", "efficient"];
-	    var atmosphere_list = ["", "crowd","parties", "party","ambiance", "anniversary", "light", "music", "conversation", "fireplace", "loud", "quite"];
-	    var price_list = ["", "cheap", "expensive", "price", "cost", "discounted", "low-priced"];
+	    var food_list = ["", "juicy", "fresh", "seasoned", "salty", "dessert", "milk", "sugar", "water", "salad", "culinary", "coffee", "pizza", "pasta", "food", "delicious", "appetizing", "crunchy", "spicy", "sweet", "greasy", "fishy", "buttery", "bland", "bitter", "aftertaste", "mouthwatering", "flavors", "flavor", "yummy", "taste", "tasty"];
+	    var service_list = ["", "professional", "unprofessional", "mean", "rude", "reservation", "personal", "reservation", "staff", "service", "slow", "pleasure", "polite", "waiter", "waitress", "fast", "helpful", "friendly", "prompt", "efficient"];
+	    var atmosphere_list = ["", "crowd","parties", "party","ambiance", "anniversary", "light", "music", "conversation", "fireplace", "loud", "quiet"];
+	    var price_list = ["", "cheap", "expensive", "price", "cost", "discounted", "low-priced", "overpriced", "deal"];
 	    
 	    //create an empty dict. 
 	    var haskey_dict = {};
