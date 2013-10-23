@@ -18,7 +18,7 @@ Kate Hsaio - Front End/Chrome Extension</p>
 <p>HTML/CSS/Javscript/jQuery for the Chrome Extension, MySQL/PHP for the database</p>
 
 <h3>Link to Demo Version</h3>
-<p></p>
+<p>You can download the CRX from the repo on github here: https://github.com/dantsai/iolab-yelp/blob/master/iolab-yelp.crx</p>
 
 <h3>Known Bugs</h3>
 <p>The extension currently only sorts by the current page of reviews. This is because Yelp provides no way to get all reviews associated with a business (even with the API, as far as we can tell).</p> 
