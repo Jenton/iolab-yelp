@@ -9,7 +9,7 @@ $(document).ready(function(){
 	var urlWithoutQueryString = currentURL.split('?')[0];
 	// alert("urlWithoutQueryString: " + urlWithoutQueryString);
 	var bizId = urlWithoutQueryString.substr(urlWithoutQueryString.lastIndexOf('/') + 1);
-	alert("bizID: " + bizId);
+	// alert("bizID: " + bizId);
 
 
 	$("#save_now").on("click", function() {
