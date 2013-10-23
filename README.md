@@ -1,4 +1,4 @@
-<h1>Project: Improving the Metadata of Yelp Reviews</h1>
+<h1>Yelp Tagger</h1>
 
 <h3>Project Description</h3>
 <p>Currently, the only tags you can add to a Yelp review are 'Useful', 'Funny' and 'Cool'. We feel that these tags provide useless metadata to a review (and even incentivize reviewers to generate "funny" content that may not necessarily be valuable other than for comedic relief). Our project changes those tags to ones that help classify reviews based on whether they are about food, about the service, the atmosphere, and/or the price of the restaurant. Our project also allows users to sort a restaurant's Yelp reviews based on those tags. So if a user wanted to view a restaurant's reviews that were more focused on the food, he or she could do that now. Currently, Yelp has no function that allows you to do this.
