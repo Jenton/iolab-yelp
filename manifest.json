@@ -15,7 +15,12 @@
   },
   "content_scripts" : [{
     "js": ["jquery.2.0.3.js", "yelp-tagger.js"],
-    "matches": ["http://www.yelp.com/biz/*", "http://www.yelp.com/biz/*"],
+    "matches": ["http://www.yelp.com/biz/*", "https://www.yelp.com/biz/*"],
+    "css": ["yelp-tagger.css"]
+  }],
+  "content_scripts" : [{
+    "js": ["jquery.2.0.3.js", "yelp-tagger-add.js"],
+    "matches": ["http://www.yelp.com/writeareview/biz/*", "https://www.yelp.com/writeareview/biz/*"],
     "css": ["yelp-tagger.css"]
   }],
   "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://api.del.icio.us; object-src 'self'"
