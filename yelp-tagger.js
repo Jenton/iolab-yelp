@@ -1,7 +1,6 @@
 var reviewList = [];
 
 $(document).ready(function(){
-
 	/* INITIAL LOADING */
 
 	// Get business id
